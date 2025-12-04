@@ -1,103 +1,107 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      {/* Hero Section */}
+      <div className="hero-sec flex flex-col items-center justify-center px-2 py-20 mx-auto text-white gap-5">
+        <h1 className="text-3xl xs:text-4xl font-bold flex items-center gap-2 sm:gap-4">
+          <img
+            src="cup.gif"
+            alt="cup-gif"
+            width={70}
+            className="sm:w-24 w-16"
+          />
+          <span className="text-center">Support Creators. Sip & Inspire.</span>
+          <img
+            src="cup.gif"
+            alt="cup-gif"
+            width={70}
+            className="sm:w-24 w-16"
+          />
+        </h1>
+        <p className="text-base text-center sm:text-lg max-w-xl mx-auto px-2 sm:px-0">
+          A crowdfunding platform dedicated to supporting creators and
+          innovators. Join us in empowering dreams with every chai.
+        </p>
+        <div className="btns flex flex-col sm:flex-row gap-4 w-full max-w-xs sm:max-w-md mx-auto justify-center">
+          <button type="button" className="btn w-full sm:w-auto">
+            Support Creators
+          </button>
+          <button type="button" className="btn w-full sm:w-auto">
+            Read More
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+
+      <div className="border-t-2 border-yellow-400 opacity-80 shadow-yellow-400/50"></div>
+      {/* Features Section */}
+      <section className="max-w-5xl mx-auto px-6 py-16 text-center">
+        <h2 className="text-3xl font-semibold mb-10 text-white">
+          How Fans Empower Creators
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
+          {/* Point 1 */}
+          <div className="flex flex-col items-center space-y-4 p-6">
+            <span
+              className="w-24 h-24 bg-cover rounded-full bg-center"
+              style={{ backgroundImage: 'url("fund.gif")' }}
+            ></span>
+            <p className="text-white font-medium">
+              Support creators with monthly contributions.
+            </p>
+          </div>
+
+          {/* Point 2 */}
+          <div className="flex flex-col items-center space-y-4 p-6">
+            <span
+              className="w-24 h-24 bg-cover rounded-full bg-center"
+              style={{ backgroundImage: 'url("Premium.gif")' }}
+            ></span>
+            <p className="text-white font-medium">
+              Access exclusive content and rewards.
+            </p>
+          </div>
+
+          {/* Point 3 */}
+          <div className="flex flex-col items-center space-y-4 p-6">
+            <span
+              className="w-24 h-24 rounded-full bg-center bg-[length:125px]"
+              style={{
+                backgroundImage: 'url("Onlinechat.gif")',
+              }}
+            ></span>
+            <p className="text-white font-medium">
+              Join chats and connect with creators.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="border-t-2 border-yellow-400 opacity-80 shadow-yellow-400/50"></div>
+
+      {/* Call to Action Section */}
+      <section className="flex justify-center py-10 px-4 sm:py-16 sm:px-6">
+        <div className="bg-white/10 backdrop-blur-md rounded-3xl min-w-[65vw] max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl border border-yellow-100/20 shadow-lg text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mt-10 mx-6 sm:mx-12 mb-6 text-white drop-shadow-lg leading-tight">
+            Fuel Creativity, One Cup at a Time
+          </h2>
+          <p className="text-yellow-100 mb-10 px-6 sm:px-12 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
+            Join thousands of creators and passionate fans shaping the future
+            with every chai. Start your journey or support the dreams you love.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-6 px-6 sm:px-12 mb-12">
+            <button className="bg-white text-[#F59E0B] font-bold rounded-full px-8 py-3 shadow-md hover:scale-105 hover:bg-yellow-50 hover:text-orange-500 transition w-full sm:w-auto">
+              Start Your Campaign
+            </button>
+            <a
+              href="#"
+              className="text-white font-semibold underline hover:text-yellow-200 transition flex items-center justify-center w-full sm:w-auto"
+            >
+              Learn How It Works
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
