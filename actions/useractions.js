@@ -32,12 +32,13 @@ export const initiate = async (amount, to_user, paymentform) => {
 
 export const fetchuser = async (username) => {
   await connectDb();
-  let u = await User.findOne({ username: username }).lean();
+  let u = await User.findOne({ username: username });
   if (!u) {
     return null;
+  } else {
+    let user = u.toObject({ flattenObjectIds: true });
+    return user;
   }
-  let user = u.toObject({ flattenObjectIds: true });
-  return user;
 };
 
 export const fetchpayment = async (username) => {
