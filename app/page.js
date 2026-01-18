@@ -1,3 +1,6 @@
+import Link from "next/link";
+import Footer from "@/components/Footer";
+
 export default function Home() {
   return (
     <>
@@ -23,12 +26,22 @@ export default function Home() {
           innovators. Join us in empowering dreams with every chai.
         </p>
         <div className="btns flex flex-col sm:flex-row gap-4 w-full max-w-xs sm:max-w-md mx-auto justify-center">
-          <button type="button" className="btn w-full sm:w-auto">
-            Support Creators
-          </button>
-          <button type="button" className="btn w-full sm:w-auto">
-            Read More
-          </button>
+          <Link href="/login">
+            <button
+              type="button"
+              className="btn cursor-pointer w-full sm:w-auto"
+            >
+              Support Creators
+            </button>
+          </Link>
+          <Link href="/about">
+            <button
+              type="button"
+              className="btn cursor-pointer w-full sm:w-auto"
+            >
+              Read More
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -89,19 +102,9 @@ export default function Home() {
             Join thousands of creators and passionate fans shaping the future
             with every chai. Start your journey or support the dreams you love.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6 px-6 sm:px-12 mb-12">
-            <button className="bg-white text-[#F59E0B] font-bold rounded-full px-8 py-3 shadow-md hover:scale-105 hover:bg-yellow-50 hover:text-orange-500 transition w-full sm:w-auto">
-              Start Your Campaign
-            </button>
-            <a
-              href="#"
-              className="text-white font-semibold underline hover:text-yellow-200 transition flex items-center justify-center w-full sm:w-auto"
-            >
-              Learn How It Works
-            </a>
-          </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import { fetchuser } from "@/actions/useractions";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -129,7 +130,7 @@ const Navbar = () => {
                 showdropdown ? "" : "hidden"
               }`}
             >
-              <ul className="py-2 text-sm text-gray-700">
+              <ul className="py-2 cursor-pointer text-sm text-gray-700">
                 <li>
                   <Link
                     href="/Dashboard"

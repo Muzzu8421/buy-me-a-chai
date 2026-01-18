@@ -8,6 +8,7 @@ import { fetchuser, fetchpayment, initiate } from "@/actions/useractions";
 import Link from "next/link";
 import { ToastContainer, Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./Footer";
 
 const PaymentPage = ({ username }) => {
   const { data: session, status } = useSession();
@@ -22,7 +23,9 @@ const PaymentPage = ({ username }) => {
 
   // Fetch user data on component mount
   React.useEffect(() => {
-    getdata();
+    if (username) {
+      getdata();
+    }
   }, [username]);
 
   // Show toast if payment=success in URL
@@ -55,8 +58,8 @@ const PaymentPage = ({ username }) => {
     }
   };
 
-  // Show loading while checking authentication
-  if (status === "loading") {
+  // Show loading while checking authentication or if username is not available
+  if (status === "loading" || !username) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
@@ -67,12 +70,13 @@ const PaymentPage = ({ username }) => {
     );
   }
 
-  // Predefined user data (could be fetched from a database)
+  // Predefined user data with safe fallbacks
   const userData = {
-    name: currentuser.name,
-    username: username,
-    profileImage: currentuser.profileImage,
-    coverImage: currentuser.coverImage,
+    name: currentuser?.name || username?.charAt(0).toUpperCase() + username?.slice(1) || "User",
+    username: username || "user",
+    profileImage: currentuser?.profileImage || null,
+    coverImage: currentuser?.coverImage || null,
+    bio: currentuser?.bio || "Creating amazing content for the community. Support me with a chai! ☕",
     totalSupporters: payments
       ? new Set(payments.map((payment) => payment.name)).size
       : 0,
@@ -198,7 +202,7 @@ const PaymentPage = ({ username }) => {
                       className="w-full h-full rounded-full object-cover"
                     />
                   ) : (
-                    userData.name.charAt(0).toUpperCase()
+                    userData.name?.charAt(0).toUpperCase() || "U"
                   )}
                 </div>
 
@@ -231,7 +235,7 @@ const PaymentPage = ({ username }) => {
                 <div className="lg:col-span-2 space-y-6">
                   <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                     <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-1">
-                      Buy {userData.name.split(" ")[0]} a Chai<span>☕</span>
+                      Buy {userData.name?.split(" ")[0] || userData.name} a Chai<span>☕</span>
                     </h2>
 
                     {/* Predefined Amounts */}
@@ -336,7 +340,7 @@ const PaymentPage = ({ username }) => {
                   </div>
                 </div>
 
-                {/* Recent Supporters - UNCHANGED */}
+                {/* Recent Supporters */}
                 <div className="lg:col-span-1">
                   <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/20 sticky top-24">
                     <h3 className="text-xl font-bold text-white mb-4">
@@ -351,7 +355,7 @@ const PaymentPage = ({ username }) => {
                           <div className="flex items-start justify-between mb-2">
                             <div className="flex items-center gap-3">
                               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center text-white font-bold text-sm">
-                                {support.name.charAt(0)}
+                                {support.name?.charAt(0) || "A"}
                               </div>
                               <div>
                                 <p className="font-semibold text-white">
@@ -381,6 +385,7 @@ const PaymentPage = ({ username }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

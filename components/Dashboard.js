@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { fetchuser, updateProfile } from "@/actions/useractions";
 import { ToastContainer, Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./Footer";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -167,7 +168,9 @@ const DashboardPage = () => {
                     <h2 className="text-2xl font-bold text-white">
                       {formData.name || "User"}
                     </h2>
-                    <p className="text-yellow-400">@{formData.username || "username"}</p>
+                    <p className="text-yellow-400">
+                      @{formData.username || "username"}
+                    </p>
                   </div>
                 </div>
 
@@ -362,6 +365,7 @@ const DashboardPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

@@ -6,9 +6,15 @@ import User from "@/models/User";
 
 export const initiate = async (amount, to_user, paymentform) => {
   await connectDb();
+  let user = await User.findOne({ username: to_user });
+  if (!user) {
+    throw new Error("Recipient user not found");
+  } 
+  const razorpayKeyId = user.razorpayId;
+  const razorpayKeySecret = user.razorpaySecret;
   var instance = new Razorpay({
-    key_id: process.env.KEY_ID,
-    key_secret: process.env.KEY_SECRET,
+    key_id: razorpayKeyId,
+    key_secret: razorpayKeySecret,
   });
 
   let options = {
