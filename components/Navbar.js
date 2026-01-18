@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showdropdown, setShowdropdown] = useState(false);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -135,13 +135,14 @@ const Navbar = () => {
                     href="/Dashboard"
                     className="block px-4 py-3 sm:py-2 hover:bg-yellow-50 hover:text-[#2A2146] transition-colors duration-150"
                     onClick={() => setShowdropdown(false)}
+                    disabled={status === "loading"}
                   >
                     Dashboard
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/profile"
+                    href={`/${session.user.name}`}
                     className="block px-4 py-3 sm:py-2 hover:bg-yellow-50 hover:text-[#2A2146] transition-colors duration-150"
                     onClick={() => setShowdropdown(false)}
                   >

@@ -3,12 +3,14 @@ import React from "react";
 import Script from "next/script";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { fetchuser, fetchpayment, initiate } from "@/actions/useractions";
 import Link from "next/link";
+import { ToastContainer, Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PaymentPage = ({ username }) => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [selectedAmount, setSelectedAmount] = useState(null);
   const [customAmount, setCustomAmount] = useState("");
@@ -16,11 +18,31 @@ const PaymentPage = ({ username }) => {
   const [name, setName] = useState("");
   const [currentuser, setcurrentuser] = useState({});
   const [payments, setpayments] = useState([]);
+  const searchParams = useSearchParams();
 
   // Fetch user data on component mount
   React.useEffect(() => {
     getdata();
   }, [username]);
+
+  // Show toast if payment=success in URL
+  React.useEffect(() => {
+    if (searchParams.get("paymentdone") == "true") {
+      toast("Payment successful!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      // Remove the paymentdone parameter from the URL
+      router.push(`/${username}`);
+    }
+  }, [searchParams]);
 
   const getdata = async () => {
     try {
@@ -33,16 +55,26 @@ const PaymentPage = ({ username }) => {
     }
   };
 
+  // Show loading while checking authentication
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-white">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   // Predefined user data (could be fetched from a database)
   const userData = {
-    name: username
-      ? username.charAt(0).toUpperCase() + username.slice(1)
-      : "John Doe",
-    username: username || "johndoe",
-    profileImage: null,
-    coverImage: null,
-    bio: "Creating amazing content for the community. Support me with a chai! ☕",
-    totalSupporters: payments ? new Set(payments.map((payment) => payment.name)).size
+    name: currentuser.name,
+    username: username,
+    profileImage: currentuser.profileImage,
+    coverImage: currentuser.coverImage,
+    totalSupporters: payments
+      ? new Set(payments.map((payment) => payment.name)).size
       : 0,
     totalChais: payments.length
       ? payments.reduce((total, payment) => total + payment.amount, 0)
@@ -121,6 +153,19 @@ const PaymentPage = ({ username }) => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
       <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
