@@ -85,9 +85,9 @@ const PaymentPage = ({ username }) => {
       currentuser?.bio ||
       "Creating amazing content for the community. Support me with a chai! ☕",
     totalSupporters: payments
-      ? new Set(payments.map((payment) => payment.name)).size
+      ? new Set(payments?.map((payment) => payment.name)).size
       : 0,
-    totalChais: payments.length
+    totalChais: payments?.length
       ? payments.reduce((total, payment) => total + payment.amount, 0)
       : 0,
   };
