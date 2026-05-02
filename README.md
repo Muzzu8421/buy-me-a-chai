@@ -12,7 +12,7 @@
 
 A crowdfunding platform for creators to receive direct support from fans. Built with Next.js, MongoDB, and Razorpay for secure payments.
 
-[Features](#features) • [Quick Start](#quick-start) • [Documentation](#documentation) • [Roadmap](#roadmap) • [Contributing](#contributing)
+[Demo](#) • [Features](#features) • [Quick Start](#quick-start) • [Documentation](#documentation) • [Roadmap](#roadmap) • [Contributing](#contributing)
 
 </div>
 

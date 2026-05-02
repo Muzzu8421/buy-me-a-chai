@@ -50,11 +50,13 @@ const PaymentPage = ({ username }) => {
   const getdata = async () => {
     try {
       let u = await fetchuser(username);
-      setcurrentuser(u);
+      setcurrentuser(u || {});
+
       let dbpayments = await fetchpayment(username);
-      setpayments(dbpayments);
+      setpayments(dbpayments || []);
     } catch (error) {
       console.error("Error fetching user data:", error);
+      setpayments([]);
     }
   };
 
@@ -72,11 +74,16 @@ const PaymentPage = ({ username }) => {
 
   // Predefined user data with safe fallbacks
   const userData = {
-    name: currentuser?.name || username?.charAt(0).toUpperCase() + username?.slice(1) || "User",
+    name:
+      currentuser?.name ||
+      username?.charAt(0).toUpperCase() + username?.slice(1) ||
+      "User",
     username: username || "user",
     profileImage: currentuser?.profileImage || null,
     coverImage: currentuser?.coverImage || null,
-    bio: currentuser?.bio || "Creating amazing content for the community. Support me with a chai! ☕",
+    bio:
+      currentuser?.bio ||
+      "Creating amazing content for the community. Support me with a chai! ☕",
     totalSupporters: payments
       ? new Set(payments.map((payment) => payment.name)).size
       : 0,
@@ -235,7 +242,8 @@ const PaymentPage = ({ username }) => {
                 <div className="lg:col-span-2 space-y-6">
                   <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/20">
                     <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-1">
-                      Buy {userData.name?.split(" ")[0] || userData.name} a Chai<span>☕</span>
+                      Buy {userData.name?.split(" ")[0] || userData.name} a Chai
+                      <span>☕</span>
                     </h2>
 
                     {/* Predefined Amounts */}
@@ -347,7 +355,7 @@ const PaymentPage = ({ username }) => {
                       Recent Supporters
                     </h3>
                     <div className="space-y-4">
-                      {payments.slice(0, 5).map((support, index) => (
+                      {payments?.slice(0, 5)?.map((support, index) => (
                         <div
                           key={index}
                           className="bg-white/5 rounded-lg p-4 border border-white/10 hover:bg-white/10 transition-colors duration-200"
